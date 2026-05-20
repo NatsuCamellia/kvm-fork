@@ -209,7 +209,7 @@ pub const HWCAP2_SME_F8F32: u64 = 576460752303423488;
 pub const HWCAP2_SME_SF8FMA: u64 = 1152921504606846976;
 pub const HWCAP2_SME_SF8DP4: u64 = 2305843009213693952;
 pub const HWCAP2_SME_SF8DP2: u64 = 4611686018427387904;
-pub const HWCAP2_POE: u64 = 9223372036854775808;
+pub const HWCAP2_POE: i64 = -9223372036854775808;
 pub const __SVE_VQ_BYTES: u32 = 16;
 pub const __SVE_VQ_MIN: u32 = 1;
 pub const __SVE_VQ_MAX: u32 = 512;
@@ -289,7 +289,8 @@ pub const KVM_ARM_VCPU_SVE: u32 = 4;
 pub const KVM_ARM_VCPU_PTRAUTH_ADDRESS: u32 = 5;
 pub const KVM_ARM_VCPU_PTRAUTH_GENERIC: u32 = 6;
 pub const KVM_ARM_VCPU_HAS_EL2: u32 = 7;
-pub const KVM_ARM_VCPU_REC: u32 = 8;
+pub const KVM_ARM_VCPU_HAS_EL2_E2H0: u32 = 8;
+pub const KVM_ARM_VCPU_REC: u32 = 9;
 pub const KVM_ARM_MAX_DBG_REGS: u32 = 16;
 pub const KVM_DEBUG_ARCH_HSR_HIGH_VALID: u32 = 1;
 pub const KVM_GUESTDBG_USE_SW_BP: u32 = 65536;
@@ -362,6 +363,7 @@ pub const KVM_DEV_ARM_VGIC_GRP_REDIST_REGS: u32 = 5;
 pub const KVM_DEV_ARM_VGIC_GRP_CPU_SYSREGS: u32 = 6;
 pub const KVM_DEV_ARM_VGIC_GRP_LEVEL_INFO: u32 = 7;
 pub const KVM_DEV_ARM_VGIC_GRP_ITS_REGS: u32 = 8;
+pub const KVM_DEV_ARM_VGIC_GRP_MAINT_IRQ: u32 = 9;
 pub const KVM_DEV_ARM_VGIC_LINE_LEVEL_INFO_SHIFT: u32 = 10;
 pub const KVM_DEV_ARM_VGIC_LINE_LEVEL_INFO_MASK: u32 = 4294966272;
 pub const KVM_DEV_ARM_VGIC_LINE_LEVEL_INTID_MASK: u32 = 1023;
@@ -745,7 +747,8 @@ pub const KVM_CAP_VM_TYPES: u32 = 235;
 pub const KVM_CAP_PRE_FAULT_MEMORY: u32 = 236;
 pub const KVM_CAP_X86_APIC_BUS_CYCLES_NS: u32 = 237;
 pub const KVM_CAP_X86_GUEST_MODE: u32 = 238;
-pub const KVM_CAP_ARM_RME: u32 = 300;
+pub const KVM_CAP_ARM_WRITABLE_IMP_ID_REGS: u32 = 239;
+pub const KVM_CAP_ARM_RME: u32 = 240;
 pub const KVM_IRQ_ROUTING_IRQCHIP: u32 = 1;
 pub const KVM_IRQ_ROUTING_MSI: u32 = 2;
 pub const KVM_IRQ_ROUTING_S390_ADAPTER: u32 = 3;
@@ -1334,6 +1337,9 @@ pub type _bindgen_ty_2 = ::std::os::raw::c_uint;
 pub const KVM_REG_ARM_VENDOR_HYP_BIT_FUNC_FEAT: _bindgen_ty_3 = 0;
 pub const KVM_REG_ARM_VENDOR_HYP_BIT_PTP: _bindgen_ty_3 = 1;
 pub type _bindgen_ty_3 = ::std::os::raw::c_uint;
+pub const KVM_REG_ARM_VENDOR_HYP_BIT_DISCOVER_IMPL_VER: _bindgen_ty_4 = 0;
+pub const KVM_REG_ARM_VENDOR_HYP_BIT_DISCOVER_IMPL_CPUS: _bindgen_ty_4 = 1;
+pub type _bindgen_ty_4 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct arm_rme_config {
@@ -3261,13 +3267,13 @@ const _: () = {
     ["Offset of field: kvm_guest_debug::arch"]
         [::std::mem::offset_of!(kvm_guest_debug, arch) - 8usize];
 };
-pub const kvm_ioeventfd_flag_nr_datamatch: _bindgen_ty_4 = 0;
-pub const kvm_ioeventfd_flag_nr_pio: _bindgen_ty_4 = 1;
-pub const kvm_ioeventfd_flag_nr_deassign: _bindgen_ty_4 = 2;
-pub const kvm_ioeventfd_flag_nr_virtio_ccw_notify: _bindgen_ty_4 = 3;
-pub const kvm_ioeventfd_flag_nr_fast_mmio: _bindgen_ty_4 = 4;
-pub const kvm_ioeventfd_flag_nr_max: _bindgen_ty_4 = 5;
-pub type _bindgen_ty_4 = ::std::os::raw::c_uint;
+pub const kvm_ioeventfd_flag_nr_datamatch: _bindgen_ty_5 = 0;
+pub const kvm_ioeventfd_flag_nr_pio: _bindgen_ty_5 = 1;
+pub const kvm_ioeventfd_flag_nr_deassign: _bindgen_ty_5 = 2;
+pub const kvm_ioeventfd_flag_nr_virtio_ccw_notify: _bindgen_ty_5 = 3;
+pub const kvm_ioeventfd_flag_nr_fast_mmio: _bindgen_ty_5 = 4;
+pub const kvm_ioeventfd_flag_nr_max: _bindgen_ty_5 = 5;
+pub type _bindgen_ty_5 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct kvm_ioeventfd {
